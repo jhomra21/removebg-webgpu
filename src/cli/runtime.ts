@@ -3,7 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 import type { CliOptions } from "./args";
-import { CliModelError } from "./model-cache";
+import { ModelCacheError } from "../native/model-cache";
 import {
   BgcutImageError,
   BgcutInferenceError,
@@ -12,7 +12,7 @@ import {
   createNativeBgcut,
   prepareNativeImage,
   type BgcutExecutionEngine,
-} from "../node/runtime";
+} from "../native/runtime";
 
 export type CliExecutionEngine = BgcutExecutionEngine;
 
@@ -50,7 +50,7 @@ export const removeBackgroundCli = (
   | BgcutInferenceError
   | BgcutOutputError
   | CliOutputWriteError
-  | CliModelError
+  | ModelCacheError
 > =>
   Effect.suspend(() => {
     const totalStartedAt = performance.now();
